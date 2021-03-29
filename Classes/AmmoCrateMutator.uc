@@ -1,5 +1,8 @@
 class AmmoCrateMutator extends ROMutator
-    config(AmmoCrate);
+	config(AmmoCrate);
+	
+var config int NorthernSupportCount;
+var config int SouthernSupportCount;
 
 function PreBeginPlay()
 {

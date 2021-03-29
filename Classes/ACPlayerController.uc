@@ -63,10 +63,16 @@ simulated function ReplaceRoles()
         I = 0;
         ForEach ROMI.NorthernRoles(RORC)
         {
-            if (RORC.RoleInfoClass == class'RORoleInfoNorthernSapper'
-                || RORC.RoleInfoClass == class'RORoleInfoNorthernSapperNLF')
+            if (RORC.RoleInfoClass == class'RORoleInfoNorthernRadioman')
             {
-                ROMI.NorthernRoles[I].RoleInfoClass = class'ACRoleInfoNorthernSapper';
+                ROMI.NorthernRoles[I].RoleInfoClass = class'ACRoleInfoNorthernSupport';
+				ROMI.NorthernRoles[I].Count =(4);
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoNorthernRadiomanNLF')
+            {
+                ROMI.NorthernRoles[I].RoleInfoClass = class'ACRoleInfoNorthernSupport';
+				ROMI.NorthernRoles[I].Count =(4);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
             I++;
@@ -75,9 +81,28 @@ simulated function ReplaceRoles()
         I = 0;
         ForEach ROMI.SouthernRoles(RORC)
         {
-            if (RORC.RoleInfoClass == class'RORoleInfoSouthernEngineer')
+            if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadioman')
             {
-                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernEngineer';
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
+				ROMI.SouthernRoles[I].Count =(4);
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanARVN')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
+				ROMI.SouthernRoles[I].Count =(4);
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanAUS')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
+				ROMI.SouthernRoles[I].Count =(4);
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanUSMC')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
+				ROMI.SouthernRoles[I].Count =(4);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
             I++;

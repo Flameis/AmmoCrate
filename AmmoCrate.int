@@ -1,22 +1,22 @@
-[RORoleInfoSouthernEngineerAC]
-MyName="Combat Engineer"
+[ACRoleInfoSouthernSupport]
+MyName="SUPPORT"
 
-[RORoleInfoNorthernSapperAC]
-MyName="Sapper"
+[ACRoleInfoNorthernSupport]
+MyName="SUPPORT"
 
-[ROItem_PlaceableAmmoCrate_04]
+[ROItem_AmmoCrate]
 DisplayName="Placeable Ammo Crate"
 ShortDisplayName="Ammo Crate"
 CapitalizedDisplayName="PLACEABLE AMMO CRATE"
 Description="A placable ammo crate."
 
-[ROItem_USPlaceableAmmoCrate_04]
+[ROItem_USAmmoCrate]
 DisplayName="Placeable Ammo Crate"
 ShortDisplayName="Ammo Crate"
 CapitalizedDisplayName="PLACEABLE AMMO CRATE"
 Description="A placable ammo crate."
 
-[ROItem_VCPlaceableAmmoCrate_04]
+[ROItem_VCAmmoCrate]
 DisplayName="Placeable Ammo Crate"
 ShortDisplayName="Ammo Crate"
 CapitalizedDisplayName="PLACEABLE AMMO CRATE"
