@@ -13,7 +13,9 @@ DefaultProperties
 {
 	WeaponContentClass(0)="AmmoCrate.ROItem_USAmmoCrate_Content" 
 	
-	RoleSelectionImage(0)=Texture2D'VN_UI_Textures.WeaponTex.VN_Binocs' //TODO: Give me a proper one soon!
-
-	ClassConstructorProxy=class'ROUSAmmoCreateConstructorProxy'
+	RoleSelectionImage(0)=Texture2D'VN_UI_Textures.menu.ProfileStats.class_icon_large_mg' //TODO: Give me a proper one soon!
+	
+	AmmoCrateClass=Class'ROGame.ROUSPlaceableAmmoResupply'
+    PhysicalAmmoCrateClass=Class'ROGame.ROUSPlaceableAmmoResupplyCrate'
+    ClassConstructorProxy=Class'ROGame.ROUSAmmoCreateConstructorProxy'
 }

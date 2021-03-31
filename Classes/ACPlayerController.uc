@@ -66,13 +66,13 @@ simulated function ReplaceRoles()
             if (RORC.RoleInfoClass == class'RORoleInfoNorthernRadioman')
             {
                 ROMI.NorthernRoles[I].RoleInfoClass = class'ACRoleInfoNorthernSupport';
-				ROMI.NorthernRoles[I].Count =(4);
+				ROMI.NorthernRoles[I].Count =(255);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
 			if (RORC.RoleInfoClass == class'RORoleInfoNorthernRadiomanNLF')
             {
                 ROMI.NorthernRoles[I].RoleInfoClass = class'ACRoleInfoNorthernSupport';
-				ROMI.NorthernRoles[I].Count =(4);
+				ROMI.NorthernRoles[I].Count =(255);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
             I++;
@@ -84,25 +84,45 @@ simulated function ReplaceRoles()
             if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadioman')
             {
                 ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
-				ROMI.SouthernRoles[I].Count =(4);
+				ROMI.SouthernRoles[I].Count =(255);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
 			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanARVN')
             {
                 ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
-				ROMI.SouthernRoles[I].Count =(4);
+				ROMI.SouthernRoles[I].Count =(255);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
 			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanAUS')
             {
                 ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
-				ROMI.SouthernRoles[I].Count =(4);
+				ROMI.SouthernRoles[I].Count =(255);
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
 			if (RORC.RoleInfoClass == class'RORoleInfoSouthernRadiomanUSMC')
             {
                 ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernSupport';
-				ROMI.SouthernRoles[I].Count =(4);
+				ROMI.SouthernRoles[I].Count =(255);
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernGrenadier')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernGrenadier';
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernGrenadierUSMC')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernGrenadier';
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernGrenadierARVN')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernGrenadier';
+                `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
+            }
+			if (RORC.RoleInfoClass == class'RORoleInfoSouthernGrenadierAUS')
+            {
+                ROMI.SouthernRoles[I].RoleInfoClass = class'ACRoleInfoSouthernGrenadierAUS';
                 `log("Replaced RoleInfoClass " $ RORC.RoleInfoClass);
             }
             I++;

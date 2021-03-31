@@ -1,5 +1,5 @@
 
-class ACRoleInfoSouthernSupport extends RORoleInfoSouthernRadioman;
+class ACRoleInfoSouthernSupport extends RORoleInfoSouthernInfantry;
 
 DefaultProperties
 {
@@ -13,24 +13,32 @@ DefaultProperties
 					PrimaryWeapons=(class'ROGame.ROWeap_M16A1_AssaultRifle_Late',class'ROGame.ROWeap_M2_Carbine'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'AmmoCrate.ROItem_USAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Early]={(
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M16A1_AssaultRifle_Late',class'ROGame.ROWeap_M2_Carbine'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'AmmoCrate.ROItem_USAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Mid]={(
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M16A1_AssaultRifle_Late',class'ROGame.ROWeap_M2_Carbine'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'AmmoCrate.ROItem_USAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Late]={(
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M16A1_AssaultRifle_Late',class'ROGame.ROWeap_M2_Carbine'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'AmmoCrate.ROItem_USAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 
 	bAllowPistolsInRealism=false

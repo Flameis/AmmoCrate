@@ -1,5 +1,5 @@
 
-class ACRoleInfoNorthernSupport extends RORoleInfoNorthernRadioman;
+class ACRoleInfoNorthernSupport extends RORoleInfoNorthernInfantry;
 
 DefaultProperties
 {
@@ -10,27 +10,35 @@ DefaultProperties
 
 	Items[RORIGM_Default]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_AK47_AssaultRifle',class'ROGame.ROWeap_SKS_Rifle'),
+					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Early]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_AK47_AssaultRifle_NLF',class'ROGame.ROWeap_SKS_Rifle'),
+					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Mid]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_AK47_AssaultRifle',class'ROGame.ROWeap_SKS_Rifle'),
+					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 	Items[RORIGM_Campaign_Late]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_AK47_AssaultRifle',class'ROGame.ROWeap_PPSH41_SMG'),
+					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
 					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItemsStartIndexForPrimary=(0, 0),
+					NumOtherItemsForPrimary=(0, 0)
 		)}
 
 	bAllowPistolsInRealism=false

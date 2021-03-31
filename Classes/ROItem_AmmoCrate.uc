@@ -40,7 +40,7 @@ simulated function PostBeginPlay()
 	}
 	else
 	{
-		WarnInternal("No or Invalid 'PhysicalAmmoCrateClass' set in 'ROItem_PlaceableAmmoCrate'");
+		WarnInternal("No or Invalid 'PhysicalAmmoCrateClass' set in 'ROItem_AmmoCrate'");
 	}
 
 	MinDistFromOtherAmmoCratesSq = MinDistFromOtherAmmoCrates * MinDistFromOtherAmmoCrates;
@@ -54,12 +54,6 @@ simulated function BeginFire(Byte FireModeNum)
 	// Only default fire mode, please.
 	if(FireModeNum > DEFAULT_FIREMODE)
 		return;
-
-	// Don't allow us to place a new crate if we've already got one in the world.
-	if(!CanPlace())
-	{
-		return;
-	}
 
 	TeamIdx = Instigator.Controller.GetTeamNum();
 
@@ -88,23 +82,6 @@ simulated function bool CanPlace(optional bool bIsInitialCheck = true)
 	// If this material physically doesn't support it or we've already got one in the world, bail.
 	if(!Super.CanPlace() || ROPC.NumPlacedAmmoCrates > 0)
 	{
-		return false;
-	}
-
-	// Next, if we've recently placed one within 30 seconds and our cooldown is ongoing, bail (with a warning).
-	if(ROPC != None)
-	{
-		CooldownRemaining = ROPC.LastPlaceAmmoCrateTime - WorldInfo.GRI.ElapsedTime;
-	}
-	else
-	{
-		CooldownRemaining = 0;
-	}
-
-	if(CooldownRemaining > 0)
-	{
-		ROPC.ReceiveLocalizedMessage(class'ROLocalMessagePlantedItem', ROTMSG_PlaceAmmoCrateCooldown,,,self);
-		HidePreviewMesh();
 		return false;
 	}
 
@@ -297,7 +274,7 @@ simulated function AlertPlacingTime(float PlacingTime)
 DefaultProperties
 {
 	WeaponContentClass(0)="AmmoCrate.ROItem_AmmoCrate_Content"
-	RoleSelectionImage(0)=Texture2D'VN_UI_Textures.WeaponTex.VN_Binocs'
+	RoleSelectionImage(0)=Texture2D'VN_UI_Textures.menu.ProfileStats.class_icon_large_mg'
 
 	WeaponIdleAnims(0)=Placeable_idle
 	WeaponIdleAnims(ALTERNATE_FIREMODE)=Placeable_idle
@@ -344,7 +321,7 @@ DefaultProperties
 
 	// Ammo
 	AmmoClass=class'ROAmmo_Placeable_AmmoCrate'
-	Category=ROIC_Equipment
+	Category=ROIC_PlaceableEquipment
 	ROTM_PlacingMessage=ROTMSG_PlaceAmmoCrate
 
 	Weight=15 //KG
@@ -355,5 +332,5 @@ DefaultProperties
 	DroppedPickupClass=None
 	bCanThrow=false
 
-	MinDistFromOtherAmmoCrates=1500 // 30m = 30 * 50. 30m sq. = 30 * 50 ^ 2
+	MinDistFromOtherAmmoCrates=50 // 30m = 30 * 50. 30m sq. = 30 * 50 ^ 2
 }
