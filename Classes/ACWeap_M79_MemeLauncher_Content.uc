@@ -423,8 +423,8 @@ defaultproperties
 	WeaponProjectiles(ALTERNATE_FIREMODE)=class'ACM79GrenadeProjectileWP'
 	FireInterval(ALTERNATE_FIREMODE)=0.15
 	DelayedRecoilTime(ALTERNATE_FIREMODE)=0.01
-	Spread(ALTERNATE_FIREMODE)=0.6
-	NumProjectiles(ALTERNATE_FIREMODE)=200
+	Spread(ALTERNATE_FIREMODE)=0.7
+	NumProjectiles(ALTERNATE_FIREMODE)=100
 
 	SecondaryRecoilMod=0.75	//0.5
 
@@ -436,9 +436,9 @@ defaultproperties
 	MaxNumPrimaryMags=6
 
 	PrimaryAmmoClass=class'ROAmmo_40x46_M79Grenade'
-	SecondaryAmmoClass=class'ROAmmo_40x46_M79Buckshot'
-	InitialNumSecondaryMags=12	//6
-	MaxNumSecondaryMags=12		//6
+	SecondaryAmmoClass=class'ROAmmo_M34_WP'
+	InitialNumSecondaryMags=1	//6
+	MaxNumSecondaryMags=1		//6
 
 	PrimaryAmmoIndex=0
 	SecondaryAmmoIndex=1

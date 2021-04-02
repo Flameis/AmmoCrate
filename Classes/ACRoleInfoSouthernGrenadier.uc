@@ -17,37 +17,36 @@ DefaultProperties
 
 	Items[RORIGM_Default]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M2_Carbine',class'ROGame.ROWeap_M16A1_AssaultRifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M2_Carbine',class'ROGame.ROWeap_M16A1_AssaultRifle'),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M34_WP',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
-					OtherItemsStartIndexForPrimary=(0, 3, 1),
-					NumOtherItemsForPrimary=(1, 1, 2),
+					OtherItems=(class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
+					OtherItemsStartIndexForPrimary=(2, 2, 0, 0),
+					NumOtherItemsForPrimary=(1, 1, 2, 2),
 		)}
 	Items[RORIGM_Campaign_Early]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M2_Carbine'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M2_Carbine'),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M34_WP',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
-					OtherItemsStartIndexForPrimary=(0, 3, 1),
+					OtherItems=(class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
+					OtherItemsStartIndexForPrimary=(2, 2, 0),
 					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 	Items[RORIGM_Campaign_Mid]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M16A1_AssaultRifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M16A1_AssaultRifle'),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M34_WP',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
-					OtherItemsStartIndexForPrimary=(0, 3, 1),
+					OtherItems=(class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
+					OtherItemsStartIndexForPrimary=(2, 2, 0),
 					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 	Items[RORIGM_Campaign_Late]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M16A1_AssaultRifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_M16A1_AssaultRifle'),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M34_WP',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
-					OtherItemsStartIndexForPrimary=(0, 3, 1),
+					OtherItems=(class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad',class'ROGame.ROWeap_M8_Smoke'),
+					OtherItemsStartIndexForPrimary=(2, 2, 0),
 					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
-
 
 	// Secondary Weapons
 	bAllowPistolsInRealism=true

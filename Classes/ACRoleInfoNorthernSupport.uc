@@ -12,7 +12,7 @@ DefaultProperties
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
-					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ACItem_VCAmmoCrate'),
 					OtherItemsStartIndexForPrimary=(0, 0),
 					NumOtherItemsForPrimary=(0, 0)
 		)}
@@ -20,7 +20,7 @@ DefaultProperties
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
-					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ACItem_VCAmmoCrate'),
 					OtherItemsStartIndexForPrimary=(0, 0),
 					NumOtherItemsForPrimary=(0, 0)
 		)}
@@ -28,7 +28,7 @@ DefaultProperties
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
-					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ACItem_VCAmmoCrate'),
 					OtherItemsStartIndexForPrimary=(0, 0),
 					NumOtherItemsForPrimary=(0, 0)
 		)}
@@ -36,7 +36,7 @@ DefaultProperties
 					// Primary : DEFAULTS
 					PrimaryWeapons=(class'ROGame.ROWeap_M1_Carbine',class'ROGame.ROWeap_MAS49_Rifle'),
 					// Other items
-					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ROItem_VCAmmoCrate'),
+					OtherItems=(class'ROGame.ROWeap_RDG1_Smoke',class'AmmoCrate.ACItem_VCAmmoCrate'),
 					OtherItemsStartIndexForPrimary=(0, 0),
 					NumOtherItemsForPrimary=(0, 0)
 		)}

@@ -68,7 +68,7 @@ simulated function DoDamageCheck()
 	{
 		MyGravity.Z = PhysicsVolume.GetGravityZ();
 
-		RadialDamageFalloffExponent = 0.5;
+		RadialDamageFalloffExponent = 1;
 
 		// Set all the main values because ProjectileHurtRadius() uses them
 		Damage = ContinuousDamage;
@@ -108,7 +108,7 @@ defaultproperties
 	Damage=200
 	DamageRadius=500
 	RadialDamageFalloffExponent=1.5
-	ArmingDistanceSq = 800000.0	// 15m
+	ArmingDistanceSq = 1000000.0	// 15m
 	MomentumTransfer=1
 	Speed=3800 // 76 M/S
 	MaxSpeed=3800	// 76 M/S
@@ -166,8 +166,10 @@ defaultproperties
 	DecalHeight=625
 	DecalWidth=625
 	
+	LifeSpan=12.0
+	
 	FumeDamageType=class'RODmgType_WhitePhosphorusFumes'
-	ContinuousDamage=100//40
+	ContinuousDamage=50//40
 	IncDamageRadius=400 //200
 	MaxIncDamageRadius=500 //300
 	RadiusGrowFactor=1.0//1.1

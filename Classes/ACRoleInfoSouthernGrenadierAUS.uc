@@ -7,9 +7,8 @@
 // Copyright (C) 2017 Tripwire Interactive LLC
 // - Sturt "Psycho Ch!cken" Jeffery @ Antimatter Games
 //=============================================================================
-class ACRoleInfoSouthernGrenadierAUS extends RORoleInfoSouthernInfantryAus
-	hidedropdown;
-
+class ACRoleInfoSouthernGrenadierAUS extends RORoleInfoSouthernInfantry;
+	
 DefaultProperties
 {
 	RoleType=RORIT_Support
@@ -18,47 +17,47 @@ DefaultProperties
 
 	Items[RORIGM_Default]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
 					// Secondary: DEFAULTS
 					SecondaryWeapons=(class'ROGame.ROWeap_Owen_SMG'),
-					DisableSecondaryForPrimary=(true,false,true),
+					DisableSecondaryForPrimary=(false,false,true),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M61_Grenade',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad'),
+					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'ROGame.ROWeap_M61_GrenadeQuad'),
 					OtherItemsStartIndexForPrimary=(0, 0, 1),
-					NumOtherItemsForPrimary=(1, 255, 2),
+					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 	Items[RORIGM_Campaign_Early]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
 					// Secondary: DEFAULTS
 					SecondaryWeapons=(class'ROGame.ROWeap_Owen_SMG'),
-					DisableSecondaryForPrimary=(true,false,true),
+					DisableSecondaryForPrimary=(false,false,true),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M61_Grenade',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad'),
+					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'ROGame.ROWeap_M61_GrenadeQuad'),
 					OtherItemsStartIndexForPrimary=(0, 0, 1),
-					NumOtherItemsForPrimary=(1, 255, 2),
+					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 	Items[RORIGM_Campaign_Mid]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
 					// Secondary: DEFAULTS
 					SecondaryWeapons=(class'ROGame.ROWeap_Owen_SMG'),
-					DisableSecondaryForPrimary=(true,false,true),
+					DisableSecondaryForPrimary=(false,false,true),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M61_Grenade',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad'),
+					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'ROGame.ROWeap_M61_GrenadeQuad'),
 					OtherItemsStartIndexForPrimary=(0, 0, 1),
-					NumOtherItemsForPrimary=(1, 255, 2),
+					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 	Items[RORIGM_Campaign_Late]={(
 					// Primary : DEFAULTS
-					PrimaryWeapons=(class'ROGame.ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
+					PrimaryWeapons=(class'ROWeap_M79_GrenadeLauncher',class'ACWeap_M79_GrenadeLauncher',class'ROGame.ROWeap_L1A1_Rifle'),
 					// Secondary: DEFAULTS
 					SecondaryWeapons=(class'ROGame.ROWeap_Owen_SMG'),
-					DisableSecondaryForPrimary=(true,false,true),
+					DisableSecondaryForPrimary=(false,false,true),
 					// Other Items
-					OtherItems=(class'ROGame.ROWeap_M61_Grenade',class'ROGame.ROWeap_M8_SmokeSingle',class'ROGame.ROWeap_M61_GrenadeQuad'),
+					OtherItems=(class'ROGame.ROWeap_M8_Smoke',class'ROGame.ROWeap_M61_GrenadeQuad'),
 					OtherItemsStartIndexForPrimary=(0, 0, 1),
-					NumOtherItemsForPrimary=(1, 255, 2),
+					NumOtherItemsForPrimary=(1, 1, 2),
 		)}
 
 	// Secondary Weapons
