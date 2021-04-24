@@ -4,6 +4,27 @@ MyName="SUPPORT"
 [ACRoleInfoNorthernSupport]
 MyName="SUPPORT"
 
+[ACRoleInfoNorthernSapper]
+MyName="SAPPER"
+
+[ACRoleInfoNorthernSapperNLF]
+MyName="SAPPER"
+
+[ACRoleInfoSouthernGrenadier]
+MyName="GRENADIER"
+
+[ACRoleInfoSouthernGrenadierAUS]
+MyName="GRENADIER"
+
+[ACRoleInfoNorthernMachineGunnerNLF]
+MyName="MACHINE GUNNER"
+
+[ACRoleInfoNorthernMachineGunner]
+MyName="MACHINE GUNNER"
+
+[ACRoleInfoSouthernMachineGunnerARVN]
+MyName="MACHINE GUNNER"
+
 [ROItem_AmmoCrate]
 DisplayName="Placeable Ammo Crate"
 ShortDisplayName="Ammo Crate"
@@ -21,3 +42,66 @@ DisplayName="Placeable Ammo Crate"
 ShortDisplayName="Ammo Crate"
 CapitalizedDisplayName="PLACEABLE AMMO CRATE"
 Description="A placable ammo crate."
+
+[ROItem_VCAmmoCrate_Content]
+DisplayName="Placeable Ammo Crate"
+ShortDisplayName="Ammo Crate"
+CapitalizedDisplayName="PLACEABLE AMMO CRATE"
+Description="A placable ammo crate."
+
+[ROItem_USAmmoCrate_Content]
+DisplayName="Placeable Ammo Crate"
+ShortDisplayName="Ammo Crate"
+CapitalizedDisplayName="PLACEABLE AMMO CRATE"
+Description="A placable ammo crate."
+
+[ROItem_AmmoCrate_Content]
+DisplayName="Placeable Ammo Crate"
+ShortDisplayName="Ammo Crate"
+CapitalizedDisplayName="PLACEABLE AMMO CRATE"
+Description="A placable ammo crate."
+
+[ACWeap_M79_GrenadeLauncher]
+DisplayName="M79 WP Grenade Launcher"
+ShortDisplayName="M79 WP"
+CapitalizedDisplayName="M79 WP GRENADE LAUNCHER"
+
+[ACWeap_M79_GrenadeLauncher_Content]
+DisplayName="M79 WP Grenade Launcher"
+ShortDisplayName="M79 WP"
+CapitalizedDisplayName="M79 WP GRENADE LAUNCHER"
+
+[ACWeap_M79_GrenadeLauncher_Level4]
+DisplayName="M79 WP Grenade Launcher"
+ShortDisplayName="M79 WP"
+CapitalizedDisplayName="M79 WP GRENADE LAUNCHER"
+
+[ACWeap_M79_MemeLauncher_Content]
+DisplayName="M79 Meme Launcher"
+ShortDisplayName="MEME"
+CapitalizedDisplayName="M79 MEME LAUNCHER"
+
+[ACWeap_MG34_LMG]
+DisplayName="MG34 Light Machine Gun"
+ShortDisplayName="MG34"
+CapitalizedDisplayName="MG34 LMG"
+
+[ACWeap_M18_SignalSmoke_Green]
+DisplayName="M18 Smoke Green"
+ShortDisplayName="M18 Smoke Green"
+CapitalizedDisplayName="M18 GREEN"
+
+[ACWeap_M18_SignalSmoke_Purple]
+DisplayName="M18 Smoke Purple"
+ShortDisplayName="M18 Smoke Purple"
+CapitalizedDisplayName="M18 PURPLE"
+
+[ACWeap_M18_SignalSmoke_Red]
+DisplayName="M18 Smoke Red"
+ShortDisplayName="M18 Smoke Red"
+CapitalizedDisplayName="M18 RED"
+
+[ACWeap_M18_SignalSmoke_Yellow]
+DisplayName="M18 Smoke Yellow"
+ShortDisplayName="M18 Smoke Yellow"
+CapitalizedDisplayName="M18 YELLOW"
