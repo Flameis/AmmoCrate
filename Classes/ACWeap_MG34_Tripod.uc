@@ -1,0 +1,196 @@
+//=============================================================================
+// ROWeap_MG34_Tripod
+//=============================================================================
+// MG34 Machine Gun deployed on a Tripod
+//=============================================================================
+// Red Orchestra Source
+// Copyright (C) 2007 Tripwire Interactive LLC
+// - Dayle "Xienen" Flowers
+//=============================================================================
+
+class ACWeap_MG34_Tripod extends ROWeap_DShK_HMG_Tripod;
+
+defaultproperties
+{
+	InvIndex=12
+
+	ArmsSocketName=Player_HandHub
+	MountWeaponAnimName=MG34_Tripod_GetOn
+
+	AmmoBeltSocket=AmmoBeltSocket
+
+	Category=ROIC_Primary
+	Weight=3.97 //KG
+
+	PlayerIronSightFOV=55.0
+
+	// MAIN FIREMODE
+	FiringStatesArray(0)=WeaponFiring
+	WeaponFireTypes(0)=EWFT_Custom
+	WeaponProjectiles(0)=class'ACBullet_MG34'
+	bLoopHighROFSounds(0)=true
+	FireInterval(0)=+0.075
+	Spread(0)=0.000175//0.0003
+
+	// ALT FIREMODE
+	FiringStatesArray(ALTERNATE_FIREMODE)=WeaponSingleFiring
+	WeaponFireTypes(ALTERNATE_FIREMODE)=EWFT_Custom
+	WeaponProjectiles(ALTERNATE_FIREMODE)=class'ACBullet_MG34'
+	FireInterval(ALTERNATE_FIREMODE)=+0.075
+	Spread(ALTERNATE_FIREMODE)=0.000175//0.0014
+
+	PreFireTraceLength=2500 //50 Meters
+	FireTweenTime=0.025
+
+    ShoulderedSpreadMod=6.0
+    HippedSpreadMod=10.0
+
+    // AI
+	MinBurstAmount=3
+    MaxBurstAmount=6
+	BurstWaitTime=1.0
+
+    // Recoil
+    maxRecoilPitch=130
+    minRecoilPitch=85
+    maxRecoilYaw=50
+    minRecoilYaw=-40
+    RecoilRate=0.07
+	RecoilMaxYawLimit=1500
+	RecoilMinYawLimit=64035
+	RecoilMaxPitchLimit=1500
+	RecoilMinPitchLimit=64785
+	RecoilISMaxYawLimit=500
+	RecoilISMinYawLimit=65035
+	RecoilISMaxPitchLimit=350
+	RecoilISMinPitchLimit=65035
+   	RecoilBlendOutRatio=0.75
+   	PostureHippedRecoilModifer=5.5
+   	PostureShoulderRecoilModifer=2.0
+   	RecoilViewRotationScale=0.45
+
+	InstantHitDamage(0)=115
+	InstantHitDamage(1)=115
+
+	InstantHitDamageTypes(0)=class'ACDmgType_MG34Bullet'
+	InstantHitDamageTypes(1)=class'ACDmgType_MG34Bullet'
+
+	MuzzleFlashSocket=MuzzleFlashSocket
+	MuzzleFlashPSCTemplate=ParticleSystem'FX_VN_Weapons.MuzzleFlashes.FX_VN_MuzzleFlash_1stP_Rifles_round'
+	MuzzleFlashDuration=0.33
+	MuzzleFlashLightClass=class'ROGame.RORifleMuzzleFlashLight'
+
+	// Shell eject FX
+	ShellEjectSocket=ShellEjectSocket
+	ShellEjectPSCTemplate=ParticleSystem'FX_VN_Weapons_Two.ShellEjects.FX_Wep_ShellEject_M1919'
+
+	// needed to show muzzle flashes
+	bShowFireFXWhenHidden=true
+
+    bHasIronSights=true
+
+	WeaponFireAnim(0)=MG34_Tripod_Shoot
+	WeaponFireAnim(1)=MG34_Tripod_Shoot
+//	WeaponFireLastAnim=MG34Tripod_shootLAST
+	WeaponIdleAnims(0)=MG34_Tripod_Idle
+	WeaponIdleAnims(1)=MG34_Tripod_Idle
+	WeaponFireSightedAnim(0)=MG34_Tripod_Shoot
+	WeaponFireSightedAnim(1)=MG34_Tripod_Shoot
+//	WeaponFireLastSightedAnim=MG34Tripod_iron_shootLAST
+	WeaponIdleSightedAnims(0)=MG34_Tripod_Idle
+	WeaponIdleSightedAnims(1)=MG34_Tripod_Idle
+	WeaponReloadEmptyMagAnim=MG34_Tripod_Reloadempty
+	WeaponReloadNonEmptyMagAnim=MG34_Tripod_Reloadhalf
+	WeaponAmmoCheckAnim=MG34_Tripod_Reloadempty
+
+//	WeaponPutDownAnim=MG34Tripod_putaway
+//	WeaponEquipAnim=MG34Tripod_pullout
+
+    WeaponIdleShoulderedAnims(0)=MG34_Tripod_Idle
+    WeaponIdleShoulderedAnims(1)=MG34_Tripod_Idle
+	WeaponFireShoulderedAnim(0)=MG34_Tripod_Shoot
+	WeaponFireShoulderedAnim(1)=MG34_Tripod_Shoot
+//	WeaponFireLastShoulderedAnim=MG34Tripod_shootLAST
+
+	EquipTime=+1.00
+	PutDownTime=+0.75
+
+    ISFocusDepth=30
+    ISFocusBlendRadius=16
+
+    // Ammo
+    AmmoClass=class'ACAmmo_792x57_MG34Belt_200'
+    MaxAmmoCount=200
+    bUsesMagazines=true
+    InitialNumPrimaryMags=5
+    bPlusOneLoading=false
+    bCanReloadNonEmptyMag=true
+    PenetrationDepth=23.5
+    MaxPenetrationTests=3
+    MaxNumPenetrations=2//5
+	// Tracers
+	TracerClass=class'DShKBulletTracer'
+	TracerFrequency=10
+	
+
+    PlayerViewOffset=(X=0.0,Y=8.0,Z=-5)
+    ZoomInRotation=(Pitch=-910,Yaw=0,Roll=2910)
+    ShoulderedTime=0.35
+    ShoulderedPosition=(X=0.5,Y=4.0,Z=-2.0)// (X=0,Y=1,Z=-1.4)
+    ShoulderRotation=(Pitch=-500,Yaw=0,Roll=2500)
+
+    bUsesFreeAim=true
+
+    // Free Aim variables
+    FreeAimMaxYawLimit=2000
+    FreeAimMinYawLimit=63535
+    FreeAimMaxPitchLimit=1500
+    FreeAimMinPitchLimit=64035
+    FreeAimISMaxYawLimit=500
+    FreeAimISMinYawLimit=65035
+    FreeAimISMaxPitchLimit=350
+    FreeAimISMinPitchLimit=65185
+    FullFreeAimISMaxYaw=350
+    FullFreeAimISMinYaw=65185
+    FullFreeAimISMaxPitch=250
+    FullFreeAimISMinPitch=65285
+    FreeAimSpeedScale=0.35
+    FreeAimISSpeedScale=0.4
+    FreeAimHipfireOffsetX=40
+
+	Begin Object Class=ForceFeedbackWaveform Name=ForceFeedbackWaveformShooting1
+		Samples(0)=(LeftAmplitude=30,RightAmplitude=30,LeftFunction=WF_Constant,RightFunction=WF_Constant,Duration=0.100)
+	End Object
+	WeaponFireWaveForm=ForceFeedbackWaveformShooting1
+
+	CollisionCheckLength=50.0 //TODO:Put the real value here?
+
+	FireCameraAnim[0]=CameraAnim'1stperson_Cameras.Anim.Camera_MG34_Shoot'
+	FireCameraAnim[1]=CameraAnim'1stperson_Cameras.Anim.Camera_MG34_Shoot'
+    ShakeScaleControlled=0.65
+
+	SightSlideControlName=Sight_Slide
+
+	SightRanges[0]=(SightRange=200,SightSlideOffset=0.0,SightPositionOffset=0.0,AddedPitch=40)
+	SightRanges[1]=(SightRange=400,SightSlideOffset=0.05,SightPositionOffset=-0.095,AddedPitch=58)
+	SightRanges[2]=(SightRange=500,SightSlideOffset=0.075,SightPositionOffset=-0.145,AddedPitch=70)
+	SightRanges[3]=(SightRange=600,SightSlideOffset=0.11,SightPositionOffset=-0.215,AddedPitch=82)
+	SightRanges[4]=(SightRange=700,SightSlideOffset=0.14,SightPositionOffset=-0.275,AddedPitch=96)
+	// All ranges below here have not been dialed in, and are just estimates
+	SightRanges[5]=(SightRange=800,SightSlideOffset=0.16,SightPositionOffset=-0.315,AddedPitch=114)
+	SightRanges[6]=(SightRange=900,SightSlideOffset=0.24,SightPositionOffset=-0.470,AddedPitch=126)
+	SightRanges[7]=(SightRange=1000,SightSlideOffset=0.3,SightPositionOffset=-0.575,AddedPitch=136)
+	SightRanges[8]=(SightRange=1100,SightSlideOffset=0.37,SightPositionOffset=-0.71,AddedPitch=148)
+	SightRanges[9]=(SightRange=1200,SightSlideOffset=0.44,SightPositionOffset=-0.85,AddedPitch=158)
+	SightRanges[10]=(SightRange=1300,SightSlideOffset=0.51,SightPositionOffset=-0.99,AddedPitch=170)
+	SightRanges[11]=(SightRange=1400,SightSlideOffset=0.59,SightPositionOffset=-1.14,AddedPitch=180)
+	SightRanges[12]=(SightRange=1500,SightSlideOffset=0.69,SightPositionOffset=-1.35,AddedPitch=190)
+	SightRanges[13]=(SightRange=1600,SightSlideOffset=0.79,SightPositionOffset=-1.55,AddedPitch=200)
+	SightRanges[14]=(SightRange=1700,SightSlideOffset=0.9,SightPositionOffset=-1.75,AddedPitch=210)
+	SightRanges[15]=(SightRange=1800,SightSlideOffset=1.02,SightPositionOffset=-1.97,AddedPitch=225)
+	SightRanges[16]=(SightRange=1900,SightSlideOffset=1.15,SightPositionOffset=-2.22,AddedPitch=240)
+	SightRanges[17]=(SightRange=2000,SightSlideOffset=1.28,SightPositionOffset=-2.48,AddedPitch=254)
+
+    SuppressionPower=15
+}
+
