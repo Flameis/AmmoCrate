@@ -7,7 +7,7 @@
 // Copyright (C) 2014 Tripwire Interactive LLC
 // - Sturt "Psycho Ch!cken" Jeffery @ Antimatter Games
 //=============================================================================
-class ACWeap_M79_GrenadeLauncher_Level2 extends AmmoCrate.ACWeap_M79_GrenadeLauncher_Content;
+class ACWeap_M79_GrenadeLauncher_Level2 extends ACWeap_M79_GrenadeLauncher_Content;
 
 simulated function TimeWeaponEquipping()
 {

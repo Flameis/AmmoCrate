@@ -13,7 +13,6 @@ simulated function PreBeginPlay()
         ReplaceRoles();
         ReplaceInventoryManager();
         ReplacePawnHandler();
-
     }
 }
 
@@ -44,6 +43,8 @@ simulated function PostBeginPlay()
 simulated function ReplacePawnHandler()
 {
     ROGameInfo(WorldInfo.Game).PawnHandlerClass = class'ACPawnHandler';
+    ROGameInfo(WorldInfo.Game).DefaultPawnClass = class'ACPawn';
+    ROGameInfo(WorldInfo.Game).AIPawnClass = class'ACPawn';
     `log("Replacing PawnHandler...");
 }
 
@@ -156,7 +157,7 @@ simulated function ReplaceRoles()
         
         if (ROMI.NorthernForce == NFOR_NVA)
         {
-            ROMI.NorthernRoles[0].RoleInfoClass = class'RORoleInfoNorthernRifleman';
+            ROMI.NorthernRoles[0].RoleInfoClass = class'ACRoleInfoRiflemanNLF';
             ROMI.NorthernRoles[1].RoleInfoClass = class'RORoleInfoNorthernScout';
             ROMI.NorthernRoles[2].RoleInfoClass = class'ACRoleInfoNorthernMachineGunner';
             ROMI.NorthernRoles[3].RoleInfoClass = class'RORoleInfoNorthernSniper';
@@ -168,7 +169,7 @@ simulated function ReplaceRoles()
 
         if (ROMI.NorthernForce == NFOR_NLF)
         {
-            ROMI.NorthernRoles[0].RoleInfoClass = class'RORoleInfoNorthernGuerilla';
+            ROMI.NorthernRoles[0].RoleInfoClass = class'ACRoleInfoRiflemanNLF';
             ROMI.NorthernRoles[1].RoleInfoClass = class'RORoleInfoNorthernScoutNLF';
             ROMI.NorthernRoles[2].RoleInfoClass = class'ACRoleInfoNorthernMachineGunnerNLF';
             ROMI.NorthernRoles[3].RoleInfoClass = class'RORoleInfoNorthernSniperNLF';
@@ -188,4 +189,52 @@ reliable client function ClientReplaceRoles()
 reliable client function ClientReplaceInventoryManager()
 {
     ReplaceInventoryManager();
+}
+
+function InitialiseCCMs()
+{
+    local ROCharacterPreviewActor ROCPA, CPABoth;
+    local ROCharCustMannequin TempCCM;
+
+    if( WorldInfo.NetMode == NM_DedicatedServer )
+        return;
+
+    if( ROCCC == none )
+    {
+        ROCCC = Spawn(class'ROCharCustController');
+
+        if( ROCCC != none )
+            ROCCC.ROPCRef = self;
+    }
+
+    foreach WorldInfo.DynamicActors(class'ROCharacterPreviewActor', ROCPA)
+    {
+        if( ROCPA.OwningTeam == EOT_Both )
+        {
+            CPABoth = ROCPA;
+        }
+        else if( AllCCMs[ROCPA.OwningTeam] == none )
+        {
+            AllCCMs[ROCPA.OwningTeam] = Spawn(class'ACCharCustMannequin', self,, ROCPA.Location, ROCPA.Rotation);
+        }
+    }
+
+    if( AllCCMs[0] == none || AllCCMs[1] == none )
+    {
+        if( CPABoth != none )
+            TempCCM = Spawn(class'ACCharCustMannequin', self,, CPABoth.Location, CPABoth.Rotation);
+        else
+        {
+            TempCCM = Spawn(class'ACCharCustMannequin', self, , vect(0,0,100));
+            `warn("Couldn't find an ACCharCustMannequin, the level designer has not added one to the map! Creating a default one"@TempCCM);
+        }
+
+        TempCCM.SetOwningTeam(EOT_Both);
+
+        if( AllCCMs[0] == none )
+            AllCCMs[0] = TempCCM;
+
+        if( AllCCMs[1] == none )
+            AllCCMs[1] = TempCCM;
+    }
 }

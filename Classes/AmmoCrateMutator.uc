@@ -1,20 +1,20 @@
-class AmmoCrateMutator extends Mutator
+class AmmoCrateMutator extends ROMutator
 	config(AmmoCrate);
 
-var config array<string>  MutatorAdmins;
 var ACPlayerController ACPC;
 var ROVolumeMapBounds ROMB;
 var ROPawnHandler ROPH;
-var array<string>       LoggedInMutatorAdmins;
+var ROGameInfo ROGI;
+var GameReplicationInfo GRI;
+var RORoleInfoClasses RORICSouth;
+var RORoleInfoClasses RORICNorth;
+//var bool bMatchLive;
 
 function PreBeginPlay()
     {
     local class<Object>          All;
     local ROMapInfo ROMI;
     local ROVolumeNoArtillery ROV;
-    local ROWeap_AK47_AssaultRifle_AKM AKM;
-    local ROWeap_AK47_AssaultRifle_Type56_1 Type56_1;
-    local ROWeap_AK47_AssaultRifle_Type56 Type56;
     ROMI = ROMapInfo(WorldInfo.GetMapInfo());
     `log("AmmoCrateMutator init");
 
@@ -30,6 +30,8 @@ function PreBeginPlay()
     DynamicLoadObject("WinterWar.WWVehicle_53K_ActualContent", class'Class');
     DynamicLoadObject("WinterWar.WWVehicle_Vickers_ActualContent", class'Class');
     DynamicLoadObject("AmmoCrate.ACVehicle_M113_APC_Content", class'Class');
+    DynamicLoadObject("AmmoCrate.TestWeap_M3A1_SMG_Content", class'Class');
+    DynamicLoadObject("AmmoCrate.TESTWeap_PPSH41_SMG_Content", class'Class');
     DynamicLoadObject("GOM3.GOMWeapon_Satchel_ActualContent", class'Class');
     DynamicLoadObject("GOM3.GOMWeapon_RPG2_ActualContent", class'Class');
     DynamicLoadObject("GOM3.GOMWeapon_RPD_SawnOff_ActualContent", class'Class');
@@ -61,6 +63,8 @@ function PreBeginPlay()
     All = class<ROWeapon>(DynamicLoadObject("GOM3.GOMWeapon_Kar98k_ActualContent", class'Class'));
     All = class<ROWeapon>(DynamicLoadObject("GOM3.GOMWeapon_BowieKnife_ActualContent", class'Class'));
     All = class<ROWeapon>(DynamicLoadObject("GOM3.GOMWeapon_M1_Carbine_ActualContent", class'Class'));
+    All = class<ROTurret>(DynamicLoadObject("AmmoCrate.TestWeap_M3A1_SMG_Content", class'Class'));
+    All = class<ROTurret>(DynamicLoadObject("AmmoCrate.TESTWeap_PPSH41_SMG_Content", class'Class'));
 
     ROMI.SharedContentReferences.AddItem(All);
 
@@ -72,27 +76,27 @@ function PreBeginPlay()
         
         if (ROGameInfo(WorldInfo.Game).PawnHandlerClass != class'ACPawnHandler')
         {
-        `log("Error replacing Handler");
+        `log("Error replacing Pawn Handler");
         }
         Else
         {
-        `log("Replacing Handler");
+        `log("Replaced Pawn Handler");
         }
 
     foreach allactors(class'ROVolumeNoArtillery', ROV)
     {
+    ROV.ShutDown();
     ROV.Destroy();
     }
 
-    AKM.Spread[0]=0.00085;
-    AKM.Spread[1]=0.00085;
-    Type56_1.Spread[0]=0.00085;
-    Type56_1.Spread[1]=0.00085;
-    Type56.Spread[0]=0.00085;
-    Type56.Spread[1]=0.00085;
-
     super.PreBeginPlay();
     }
+
+function PostBeginPlay()
+{
+    `log("PostBeginPlay()");
+    ReplacePawns();
+}
 
 function AddSharedContentRef(object ObjectToAdd);
 
@@ -116,6 +120,25 @@ function ModifyPlayer(Pawn Other)
     super.ModifyPlayer(Other);
     }
 */
+
+simulated function ReplacePawns()
+{
+    ROGameInfo(WorldInfo.Game).SouthRoleContentClasses = RORICSouth;
+    ROGameInfo(WorldInfo.Game).NorthRoleContentClasses = RORICNorth;
+    `log("Pawns replaced");
+}
+
+simulated function ModifyPlayer(Pawn Other)
+{
+    super.ModifyPlayer(Other);
+
+    ReplacePawns();
+}
+
+simulated function ModifyPreLogin(string Options, string Address, out string ErrorMessage)
+{
+    ReplacePawns();
+}
 
 function NotifyLogin(Controller NewPlayer)
     {
@@ -144,8 +167,236 @@ function ClearVehicles()
 	foreach WorldInfo.AllPawns(class'ROVehicle', ROV)
 	{
 		if( !ROV.bDriving )
+            ROV.ShutDown();
 			ROV.Destroy();
 	}
+}
+
+/*function Slomo( float F )
+{
+    while (ROGameInfo(WorldInfo.Game).bRoundHasBegun && WorldInfo.TimeDilation != F)
+    {
+        if (0.25 <= F && F <= 4)
+	    {
+	        WorldInfo.Game.SetGameSpeed(F);
+        }
+        else
+        {
+            WorldInfo.Game.SetGameSpeed(1);
+            `log("Error");
+        }
+    }
+
+    while (!ROGameInfo(WorldInfo.Game).bRoundHasBegun && WorldInfo.TimeDilation != 1)
+    {
+	    WorldInfo.Game.SetGameSpeed(1);
+    }
+}*/
+
+function SetJumpZ(PlayerController PC, float F )
+{
+    //while (ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.JumpZ != F)
+    //{
+        if (0.5 <= F && F <= 10)
+	    {
+	        PC.Pawn.JumpZ = F;
+        }
+        else
+        {
+            PC.Pawn.JumpZ = 1;
+            `log("Error");
+        }
+    //}
+
+    //while (!ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.JumpZ != 1)
+    //{
+	//    PC.Pawn.JumpZ = 1;
+    //}
+}
+
+function SetGravity( float F )
+{
+    //while (ROGameInfo(WorldInfo.Game).bRoundHasBegun && WorldInfo.WorldGravityZ != WorldInfo.Default.WorldGravityZ * F)
+    //{
+        if (-3 <= F && F <= 5)
+	    {
+            WorldInfo.WorldGravityZ = WorldInfo.Default.WorldGravityZ * F;
+        }
+        else
+        {
+            WorldInfo.WorldGravityZ = WorldInfo.Default.WorldGravityZ;
+            `log("Error");
+        }
+    //}
+
+    /*while (!ROGameInfo(WorldInfo.Game).bRoundHasBegun && WorldInfo.WorldGravityZ != WorldInfo.Default.WorldGravityZ)
+    {
+        WorldInfo.WorldGravityZ = WorldInfo.Default.WorldGravityZ;
+    }*/
+}
+
+function SetSpeed(PlayerController PC, float F )
+{
+    //while (ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.GroundSpeed != PC.Pawn.Default.GroundSpeed * F && PC.Pawn.WaterSpeed != PC.Pawn.Default.WaterSpeed * F)
+    //{
+        if (0.5 <= F && F <= 5)
+	    {
+            PC.Pawn.GroundSpeed = PC.Pawn.Default.GroundSpeed * F;
+	        PC.Pawn.WaterSpeed = PC.Pawn.Default.WaterSpeed * F;
+        }
+        else
+        {
+            PC.Pawn.GroundSpeed = PC.Pawn.Default.GroundSpeed;
+	        PC.Pawn.WaterSpeed = PC.Pawn.Default.WaterSpeed;
+            `log("Error");
+        }
+    //}
+
+    /*while (!ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.GroundSpeed != PC.Pawn.Default.GroundSpeed && PC.Pawn.WaterSpeed != PC.Pawn.Default.WaterSpeed)
+    {
+        PC.Pawn.GroundSpeed = PC.Pawn.Default.GroundSpeed;
+	    PC.Pawn.WaterSpeed = PC.Pawn.Default.WaterSpeed;
+    } */
+}
+
+function ChangeSize(PlayerController PC, float F )
+{
+    //while (ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.CylinderComponent.CollisionHeight != PC.Pawn.Default.CylinderComponent.CollisionHeight * F)
+    //{
+        if (0.1 <= F && F <= 50)
+	    {
+            PC.Pawn.CylinderComponent.SetCylinderSize( PC.Pawn.Default.CylinderComponent.CollisionRadius * F / 2, PC.Pawn.Default.CylinderComponent.CollisionHeight * F );
+	        PC.Pawn.SetDrawScale(F);
+	        PC.Pawn.SetLocation(PC.Pawn.Location);
+        }
+        else
+        {
+            PC.Pawn.CylinderComponent.SetCylinderSize(PC.Pawn.Default.CylinderComponent.CollisionRadius, PC.Pawn.Default.CylinderComponent.CollisionHeight);
+	        PC.Pawn.SetDrawScale(1);
+	        PC.Pawn.SetLocation(PC.Pawn.Location);
+            `log("Error");
+        }
+    //}
+
+    //while (!ROGameInfo(WorldInfo.Game).bRoundHasBegun && PC.Pawn.CylinderComponent.CollisionHeight != PC.Pawn.Default.CylinderComponent.CollisionHeight)
+    //{
+    //    PC.Pawn.CylinderComponent.SetCylinderSize(PC.Pawn.Default.CylinderComponent.CollisionRadius, PC.Pawn.Default.CylinderComponent.CollisionHeight);
+	//    PC.Pawn.SetDrawScale(1);
+	//    PC.Pawn.SetLocation(PC.Pawn.Location);
+    //}
+}
+
+function AddBots(int Num, optional int NewTeam = -1, optional bool bNoForceAdd)
+{
+	local ROAIController ROBot;
+	local byte ChosenTeam;
+	local byte SuggestedTeam;
+	// GRIP BEGIN
+	local ROPlayerReplicationInfo ROPRI;
+	// GRIP END
+	// do not add bots during server travel
+    ROGI = ROGameInfo(WorldInfo.Game);
+
+	if( ROGI.bLevelChange )
+	{
+		return;
+	}
+
+	while ( Num > 0 && ROGI.NumBots + ROGI.NumPlayers < ROGI.MaxPlayers )
+	{
+		// Create a new Controller for this Bot
+	    ROBot = Spawn(ROGI.AIControllerClass);
+
+		// Assign the bot a Player ID
+		ROBot.PlayerReplicationInfo.PlayerID = ROGI.CurrentID++;
+
+		// Suggest a team to put the AI on
+		if ( ROGI.bBalanceTeams || NewTeam == -1 )
+		{
+			if ( ROGI.GameReplicationInfo.Teams[`AXIS_TEAM_INDEX].Size - ROGI.GameReplicationInfo.Teams[`ALLIES_TEAM_INDEX].Size <= 0
+				&& ROGI.BotCapableNorthernRolesAvailable() )
+			{
+				SuggestedTeam = `AXIS_TEAM_INDEX;
+			}
+			else if( ROGI.BotCapableSouthernRolesAvailable() )
+			{
+				SuggestedTeam = `ALLIES_TEAM_INDEX;
+			}
+			// If there are no roles available on either team, don't allow this to go any further
+			else
+			{
+				ROBot.Destroy();
+				return;
+			}
+		}
+		else if (ROGI.BotCapableNorthernRolesAvailable() || ROGI.BotCapableSouthernRolesAvailable())
+		{
+			SuggestedTeam = NewTeam;
+		}
+		else
+		{
+			ROBot.Destroy();
+			return;
+		}
+
+		// Put the new Bot on the Team that needs it
+		ChosenTeam = ROGI.PickTeam(SuggestedTeam, ROBot);
+		// Set the bot name based on team
+		ROGI.ChangeName(ROBot, ROGI.GetDefaultBotName(ROBot, ChosenTeam, ROTeamInfo(ROGI.GameReplicationInfo.Teams[ChosenTeam]).NumBots + 1), false);
+
+		ROGI.JoinTeam(ROBot, ChosenTeam);
+
+		ROBot.SetTeam(ROBot.PlayerReplicationInfo.Team.TeamIndex);
+
+		// Have the bot choose its role
+		if( !ROBot.ChooseRole() )
+		{
+			ROBot.Destroy();
+			continue;
+		}
+
+		ROBot.ChooseSquad();
+
+		// GRIP BEGIN
+		// Remove. Debugging purpose only.
+		ROPRI = ROPlayerReplicationInfo(ROBot.PlayerReplicationInfo);
+		if( ROPRI.RoleInfo.bIsTankCommander )
+		{
+			ROGI.ChangeName(ROBot, ROPRI.GetHumanReadableName()$" (TankAI)", false);
+		}
+		// GRIP END
+
+		if ( ROTeamInfo(ROBot.PlayerReplicationInfo.Team) != none && ROTeamInfo(ROBot.PlayerReplicationInfo.Team).ReinforcementsRemaining > 0 )
+		{
+			// Spawn a Pawn for the new Bot Controller
+			ROGI.RestartPlayer(ROBot);
+		}
+
+		if ( ROGI.bInRoundStartScreen )
+		{
+			ROBot.AISuspended();
+		}
+
+		// Note that we've added another Bot
+		if( !bNoForceAdd )
+		ROGI.DesiredPlayerCount++;
+	    ROGI.NumBots++;
+		Num--;
+		ROGI.UpdateGameSettingsCounts();
+	}
+}
+
+function RemoveBots()
+{
+    local ROAIController ROB;
+    foreach allactors(class'ROAIController', ROB)
+    {
+        ROB.ShutDown();
+        ROB.Destroy();
+        ROB.Pawn.ShutDown();
+        ROB.Pawn.Destroy();
+    }
+    ROGI.NumBots=0;
 }
 
 function Mutate(string MutateString, PlayerController PC) //no prefixes, also call super function!
@@ -155,437 +406,483 @@ function Mutate(string MutateString, PlayerController PC) //no prefixes, also ca
 
         Args = SplitString(MutateString, " ", true);
         command = Caps(Args[0]);
-
         
-        Switch (Command)
-        {
-            case "GIVEWEAPON":
-            GiveWeapon(PC, StringToInt(Args[1]));
-            `log("Giving a weapon");
-            break;
-            
-            case "SPAWNVEHICLE":
-            SpawnVehicle(PC, StringToInt(Args[1]));
-            `log("Spawning a vehicle");
-            break;
+        //if (!bMatchLive)
+        //{
+            Switch (Command)
+            {
+                case "GIVEWEAPON":
+                GiveWeapon(PC, StringToInt(Args[1]));
+                `log("Giving a weapon");
+                break;
+                
+                case "SPAWNVEHICLE":
+                SpawnVehicle(PC, StringToInt(Args[1]));
+                `log("Spawning a vehicle");
+                break;
 
-            case "CLEARVEHICLES":
-            ClearVehicles();
-            `log("Clearing Vehicles");
-            break;
+                case "CLEARVEHICLES":
+                ClearVehicles();
+                `log("Clearing Vehicles");
+                break;
 
-            case "CLEARVEHICLES":
-            break;
-        }
+                //case "SLOMO":
+                //Slomo(float(Args[1]));
+                //`log("Slomo");
+                //break;
+
+                case "SetJumpZ":
+                SetJumpZ(PC, float(Args[1]));
+                `log("SetJumpZ");
+                break;
+
+                case "SetGravity":
+                SetGravity(float(Args[1]));
+                `log("SetGravity");
+                break;
+
+                case "SetSpeed":
+                SetSpeed(PC, float(Args[1]));
+                `log("SetSpeed");
+                break;
+
+                case "ChangeSize":
+                ChangeSize(PC, float(Args[1]));
+                `log("ChangeSize");
+                break;
+
+                case "ADDBOTS":
+                AddBots(int(Args[1]), int(Args[2]), bool(Args[3]));
+                `log("Added Bots");
+                break;
+
+                case "REMOVEBOTS":
+                RemoveBots();
+                `log("Removed Bots");
+                break;
+            }
+        //}
+        //Else
+        //{
+        //    PrivateMessage(PC, "Command failed: LIVE has been called");
+        //}
 
     super.Mutate(MutateString, PC);
     }
 
 function int StringToInt(string String)
     {
-    if(String ~= "USAMMO")
-    {
-        return 1;
-    }
-    else if(String ~= "VCAMMO")
-    {
-        return 2;
-    }
-    else if(String ~= "BHP")
-    {
-        return 3;
-    }
-    else if(String ~= "M79WP")
-    {
-        return 4;
-    }
-    else if(String ~= "MEME")
-    {
-        return 5;
-    }
-    else if(String ~= "MG34")
-    {
-        return 6;
-    }
-    else if(String ~= "DSHK")
-    {
-        return 7;
-    }
-    else if(String ~= "AKM")
-    {
-        return 8;
-    }
-    else if(String ~= "C4")
-    {
-        return 10;
-    }
-    else if(String ~= "DP28")
-    {
-        return 11;
-    }
-    else if(String ~= "F1")
-    {
-        return 12;
-    }
-    else if(String ~= "FOUGASSE")
-    {
-        return 13;
-    }
-    else if(String ~= "IZH43")
-    {
-        return 14;
-    }
-    else if(String ~= "K50M")
-    {
-        return 15;
-    }
-    else if(String ~= "L1A1")
-    {
-        return 16;
-    }
-    else if(String ~= "L2A1")
-    {
-        return 17;
-    }
-    else if(String ~= "M1CARBINE")
-    {
-        return 18;
-    }
-    else if(String ~= "M14")
-    {
-        return 19;
-    }
-    else if(String ~= "M1630RND")
-    {
-        return 20;
-    }
-    else if(String ~= "TYPE56")
-    {
-        return 21;
-    }
-    else if(String ~= "M16")
-    {
-        return 22;
-    }
-    else if(String ~= "CLAYMORE")
-    {
-        return 23;
-    }
-    else if(String ~= "M18SMOKE")
-    {
-        return 24;
-    }
-    else if(String ~= "M1911")
-    {
-        return 25;
-    }
-    else if(String ~= "REVOLVER")
-    {
-        return 26;
-    }
-    else if(String ~= "BAR")
-    {
-        return 27;
-    }
-    else if(String ~= "M1919")
-    {
-        return 28;
-    }
-    else if(String ~= "TYPE56-1")
-    {
-        return 29;
-    }
-    else if(String ~= "THOMPSON")
-    {
-        return 30;
-    }
-    else if(String ~= "M1DGARAND")
-    {
-        return 31;
-    }
-    else if(String ~= "M1GARAND")
-    {
-        return 32;
-    }
-    else if(String ~= "M2CARBINE")
-    {
-        return 33;
-    }
-    else if(String ~= "M34WP")
-    {
-        return 34;
-    }
-    else if(String ~= "DUCKBILL")
-    {
-        return 35;
-    }
-    else if(String ~= "STAKEOUT")
-    {
-        return 36;
-    }
-    else if(String ~= "TRENCH")
-    {
-        return 37;
-    }
-    else if(String ~= "GREASEGUN")
-    {
-        return 38;
-    }
-    else if(String ~= "M40")
-    {
-        return 39;
-    }
-    else if(String ~= "M60")
-    {
-        return 40;
-    }
-    else if(String ~= "M61")
-    {
-        return 41;
-    }
-    else if(String ~= "M61QUAD")
-    {
-        return 42;
-    }
-    else if(String ~= "M79")
-    {
-        return 43;
-    }
-    else if(String ~= "M79BUCKSHOT")
-    {
-        return 44;
-    }
-    else if(String ~= "M79SMOKE")
-    {
-        return 45;
-    }
-    else if(String ~= "M8SMOKE")
-    {
-        return 46;
-    }
-    else if(String ~= "FLAMETHROWER")
-    {
-        return 47;
-    }
-    else if(String ~= "MAS49")
-    {
-        return 48;
-    }
-    else if(String ~= "MAS49GRENADE")
-    {
-        return 49;
-    }
-    else if(String ~= "MAS49SNIPER")
-    {
-        return 50;
-    }
-    else if(String ~= "MAT49")
-    {
-        return 51;
-    }
-    else if(String ~= "MD82")
-    {
-        return 52;
-    }
-    else if(String ~= "MOSIN")
-    {
-        return 53;
-    }
-    else if(String ~= "MOSINSNIPER")
-    {
-        return 54;
-    }
-    else if(String ~= "MOLOTOV")
-    {
-        return 55;
-    }
-    else if(String ~= "MP40")
-    {
-        return 56;
-    }
-    else if(String ~= "OWEN")
-    {
-        return 57;
-    }
-    else if(String ~= "MAKAROV")
-    {
-        return 58;
-    }
-    else if(String ~= "PPSH")
-    {
-        return 59;
-    }
-    else if(String ~= "PPSHDRUM")
-    {
-        return 60;
-    }
-    else if(String ~= "PUNJI")
-    {
-        return 61;
-    }
-    else if(String ~= "RDG1SMOKE")
-    {
-        return 62;
-    }
-    else if(String ~= "RP46")
-    {
-        return 63;
-    }
-    else if(String ~= "RPD")
-    {
-        return 64;
-    }
-    else if(String ~= "RPG7")
-    {
-        return 65;
-    }
-    else if(String ~= "SKS")
-    {
-        return 66;
-    }
-    else if(String ~= "SVD")
-    {
-        return 67;
-    }
-    else if(String ~= "TRIPWIRE")
-    {
-        return 68;
-    }
-    else if(String ~= "TT33")
-    {
-        return 69;
-    }
-    else if(String ~= "TYPE67")
-    {
-        return 70;
-    }
-    else if(String ~= "SATCHEL")
-    {
-        return 71;
-    }
-    else if(String ~= "XM17730RND")
-    {
-        return 72;
-    }
-    else if(String ~= "XM177")
-    {
-        return 73;
-    }
-    else if(String ~= "XM21SNIPER")
-    {
-        return 74;
-    }
-    else if(String ~= "XM21SILENCED")
-    {
-        return 75;
-    }
-    else if(String ~= "COBRA")
-    {
-        return 76;
-    }
-    else if(String ~= "LOACH")
-    {
-        return 77;
-    }
-    else if(String ~= "HUEY")
-    {
-        return 78;
-    }
-    else if(String ~= "BUSHRANGER")
-    {
-        return 79;
-    }
-    else if(String ~= "M113ACAV")
-    {
-        return 80;
-    }
-    else if(String ~= "T20")
-    {
-        return 81;
-    }
-    else if(String ~= "T26")
-    {
-        return 82;
-    }
-    else if(String ~= "T28")
-    {
-        return 83;
-    }
-    else if(String ~= "HT130")
-    {
-        return 84;
-    }
-    else if(String ~= "ATGUN")
-    {
-        return 85;
-    }
-    else if(String ~= "VICKERS")
-    {
-        return 86;
-    }
-    else if(String ~= "M18YELLOW")
-    {
-        return 87;
-    }
-    else if(String ~= "M18RED")
-    {
-        return 88;
-    }
-    else if(String ~= "M18PURPLE")
-    {
-        return 89;
-    }
-    else if(String ~= "M18GREEN")
-    {
-        return 90;
-    }
-    else if(String ~= "RPG2")
-    {
-        return 91;
-    }
-    else if(String ~= "RPDSAWNOFF")
-    {
-        return 92;
-    }
-    else if(String ~= "PPS43")
-    {
-        return 93;
-    }
-    else if(String ~= "M38CARBINE")
-    {
-        return 94;
-    }
-    else if(String ~= "M7RIFLENADE")
-    {
-        return 95;
-    }
-    else if(String ~= "KAR98K")
-    {
-        return 96;
-    }
-    else if(String ~= "BOWIE")
-    {
-        return 97;
-    }
-    else if(String ~= "GOMCARBINE")
-    {
-        return 98;
-    }
-    else if(String ~= "M113")
-    {
-        return 99;
-    }
-    else if(String ~= "MG34HMG")
-    {
-        return 100;
-    }
-    else if(String ~= "MKB42")
-    {
-        return 101;
-    }
-    else
-    {
-        return -1;
+        if(String ~= "USAMMO")
+        {
+            return 1;
+        }
+        else if(String ~= "VCAMMO")
+        {
+            return 2;
+        }
+        else if(String ~= "BHP")
+        {
+            return 3;
+        }
+        else if(String ~= "M79WP")
+        {
+            return 4;
+        }
+        else if(String ~= "MEME")
+        {
+            return 5;
+        }
+        else if(String ~= "MG34")
+        {
+            return 6;
+        }
+        else if(String ~= "DSHK")
+        {
+            return 7;
+        }
+        else if(String ~= "AKM")
+        {
+            return 8;
+        }
+        else if(String ~= "C4")
+        {
+            return 10;
+        }
+        else if(String ~= "DP28")
+        {
+            return 11;
+        }
+        else if(String ~= "F1")
+        {
+            return 12;
+        }
+        else if(String ~= "FOUGASSE")
+        {
+            return 13;
+        }
+        else if(String ~= "IZH43")
+        {
+            return 14;
+        }
+        else if(String ~= "K50M")
+        {
+            return 15;
+        }
+        else if(String ~= "L1A1")
+        {
+            return 16;
+        }
+        else if(String ~= "L2A1")
+        {
+            return 17;
+        }
+        else if(String ~= "M1CARBINE")
+        {
+            return 18;
+        }
+        else if(String ~= "M14")
+        {
+            return 19;
+        }
+        else if(String ~= "M1630RND")
+        {
+            return 20;
+        }
+        else if(String ~= "TYPE56")
+        {
+            return 21;
+        }
+        else if(String ~= "M16")
+        {
+            return 22;
+        }
+        else if(String ~= "CLAYMORE")
+        {
+            return 23;
+        }
+        else if(String ~= "M18SMOKE")
+        {
+            return 24;
+        }
+        else if(String ~= "M1911")
+        {
+            return 25;
+        }
+        else if(String ~= "REVOLVER")
+        {
+            return 26;
+        }
+        else if(String ~= "BAR")
+        {
+            return 27;
+        }
+        else if(String ~= "M1919")
+        {
+            return 28;
+        }
+        else if(String ~= "TYPE56-1")
+        {
+            return 29;
+        }
+        else if(String ~= "THOMPSON")
+        {
+            return 30;
+        }
+        else if(String ~= "M1DGARAND")
+        {
+            return 31;
+        }
+        else if(String ~= "M1GARAND")
+        {
+            return 32;
+        }
+        else if(String ~= "M2CARBINE")
+        {
+            return 33;
+        }
+        else if(String ~= "M34WP")
+        {
+            return 34;
+        }
+        else if(String ~= "DUCKBILL")
+        {
+            return 35;
+        }
+        else if(String ~= "STAKEOUT")
+        {
+            return 36;
+        }
+        else if(String ~= "TRENCH")
+        {
+            return 37;
+        }
+        else if(String ~= "GREASEGUN")
+        {
+            return 38;
+        }
+        else if(String ~= "M40")
+        {
+            return 39;
+        }
+        else if(String ~= "M60")
+        {
+            return 40;
+        }
+        else if(String ~= "M61")
+        {
+            return 41;
+        }
+        else if(String ~= "M61QUAD")
+        {
+            return 42;
+        }
+        else if(String ~= "M79")
+        {
+            return 43;
+        }
+        else if(String ~= "M79BUCKSHOT")
+        {
+            return 44;
+        }
+        else if(String ~= "M79SMOKE")
+        {
+            return 45;
+        }
+        else if(String ~= "M8SMOKE")
+        {
+            return 46;
+        }
+        else if(String ~= "FLAMETHROWER")
+        {
+            return 47;
+        }
+        else if(String ~= "MAS49")
+        {
+            return 48;
+        }
+        else if(String ~= "MAS49GRENADE")
+        {
+            return 49;
+        }
+        else if(String ~= "MAS49SNIPER")
+        {
+            return 50;
+        }
+        else if(String ~= "MAT49")
+        {
+            return 51;
+        }
+        else if(String ~= "MD82")
+        {
+            return 52;
+        }
+        else if(String ~= "MOSIN")
+        {
+            return 53;
+        }
+        else if(String ~= "MOSINSNIPER")
+        {
+            return 54;
+        }
+        else if(String ~= "MOLOTOV")
+        {
+            return 55;
+        }
+        else if(String ~= "MP40")
+        {
+            return 56;
+        }
+        else if(String ~= "OWEN")
+        {
+            return 57;
+        }
+        else if(String ~= "MAKAROV")
+        {
+            return 58;
+        }
+        else if(String ~= "PPSH")
+        {
+            return 59;
+        }
+        else if(String ~= "PPSHDRUM")
+        {
+            return 60;
+        }
+        else if(String ~= "PUNJI")
+        {
+            return 61;
+        }
+        else if(String ~= "RDG1SMOKE")
+        {
+            return 62;
+        }
+        else if(String ~= "RP46")
+        {
+            return 63;
+        }
+        else if(String ~= "RPD")
+        {
+            return 64;
+        }
+        else if(String ~= "RPG7")
+        {
+            return 65;
+        }
+        else if(String ~= "SKS")
+        {
+            return 66;
+        }
+        else if(String ~= "SVD")
+        {
+            return 67;
+        }
+        else if(String ~= "TRIPWIRE")
+        {
+            return 68;
+        }
+        else if(String ~= "TT33")
+        {
+            return 69;
+        }
+        else if(String ~= "TYPE67")
+        {
+            return 70;
+        }
+        else if(String ~= "SATCHEL")
+        {
+            return 71;
+        }
+        else if(String ~= "XM17730RND")
+        {
+            return 72;
+        }
+        else if(String ~= "XM177")
+        {
+            return 73;
+        }
+        else if(String ~= "XM21SNIPER")
+        {
+            return 74;
+        }
+        else if(String ~= "XM21SILENCED")
+        {
+            return 75;
+        }
+        else if(String ~= "COBRA")
+        {
+            return 76;
+        }
+        else if(String ~= "LOACH")
+        {
+            return 77;
+        }
+        else if(String ~= "HUEY")
+        {
+            return 78;
+        }
+        else if(String ~= "BUSHRANGER")
+        {
+            return 79;
+        }
+        else if(String ~= "M113ACAV")
+        {
+            return 80;
+        }
+        else if(String ~= "T20")
+        {
+            return 81;
+        }
+        else if(String ~= "T26")
+        {
+            return 82;
+        }
+        else if(String ~= "T28")
+        {
+            return 83;
+        }
+        else if(String ~= "HT130")
+        {
+            return 84;
+        }
+        else if(String ~= "ATGUN")
+        {
+            return 85;
+        }
+        else if(String ~= "VICKERS")
+        {
+            return 86;
+        }
+        else if(String ~= "M18YELLOW")
+        {
+            return 87;
+        }
+        else if(String ~= "M18RED")
+        {
+            return 88;
+        }
+        else if(String ~= "M18PURPLE")
+        {
+            return 89;
+        }
+        else if(String ~= "M18GREEN")
+        {
+            return 90;
+        }
+        else if(String ~= "RPG2")
+        {
+            return 91;
+        }
+        else if(String ~= "RPDSAWNOFF")
+        {
+            return 92;
+        }
+        else if(String ~= "PPS43")
+        {
+            return 93;
+        }
+        else if(String ~= "M38CARBINE")
+        {
+            return 94;
+        }
+        else if(String ~= "M7RIFLENADE")
+        {
+            return 95;
+        }
+        else if(String ~= "KAR98K")
+        {
+            return 96;
+        }
+        else if(String ~= "BOWIE")
+        {
+            return 97;
+        }
+        else if(String ~= "GOMCARBINE")
+        {
+            return 98;
+        }
+        else if(String ~= "M113")
+        {
+            return 99;
+        }
+        /*else if(String ~= "MG34HMG")
+        {
+            return 102;
+        }
+        else if(String ~= "MKB42")
+        {
+            return 101;
+        }*/
+        else if(String ~= "CIWS")
+        {
+            return 102;
+        }
+        else if(String ~= "RPPG")
+        {
+            return 103;
+        }
+        else
+        {
+            return -1;
     }
 }
 
@@ -1061,10 +1358,24 @@ function GiveWeapon(PlayerController PC, int WeaponName)
         }
         if (WeaponName == 100)
         {
-            InvManager.LoadAndCreateInventory("GOM3.GOMWeapon_M1_Carbine_ActualContent", false, true);
+            InvManager.LoadAndCreateInventory("AmmoCrate.ACItem_PlaceableHMG_MG34_Content", false, true);
         }
         if (WeaponName == 101)
         {
             InvManager.LoadAndCreateInventory("AmmoCrate.ROWeap_MKb42_AssaultRifle_Content", false, true);
         }
+        if (WeaponName == 102)
+        {
+            InvManager.LoadAndCreateInventory("AmmoCrate.TestWeap_M3A1_SMG_Content", false, true);
+        }
+        if (WeaponName == 103)
+        {
+            InvManager.LoadAndCreateInventory("AmmoCrate.TESTWeap_PPSH41_SMG_Content", false, true);
+        }
     }
+
+DefaultProperties
+{
+    RORICSouth=(LevelContentClasses=("AmmoCrate.ACSouthPawn"))
+    RORICNorth=(LevelContentClasses=("AmmoCrate.ACNorthPawn"))
+}

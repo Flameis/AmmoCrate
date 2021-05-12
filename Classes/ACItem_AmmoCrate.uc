@@ -329,4 +329,8 @@ DefaultProperties
 	PhysicalAmmoCrateClass=class'ROGame.ROPlaceableAmmoResupplyCrate'
 
 	MinDistFromOtherAmmoCrates=50 // 30m = 30 * 50. 30m sq. = 30 * 50 ^ 2
+
+	bCanThrow=false
+	DroppedPickupMesh=None
+	PickupFactoryMesh=None
 }

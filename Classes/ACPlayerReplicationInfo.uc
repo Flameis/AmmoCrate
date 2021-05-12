@@ -34,4 +34,16 @@ function bool SelectRoleByClass(Controller C, class<RORoleInfo> RoleInfoClass,
 
     return super.SelectRoleByClass(C, RoleInfoClass, WeaponSelection,
         NewSquadIndex, NewClassIndex, TankSelection);
+
+	PawnHandlerClass = class'ACPawnHandler';
+
+	if( bBot )
+    {
+        PawnHandlerClass = class'ACPawnHandler';
+    }
+}
+
+defaultproperties
+{
+	PawnHandlerClass = class'ACPawnHandler';
 }
